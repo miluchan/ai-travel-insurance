@@ -1,0 +1,39 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI旅遊保險智慧管家 V2.1.1</title><link rel="stylesheet" href="/static/css/style.css"></head>
+<body><div class="shell"><header><div class="brand">✈ AI Travel Insurance Agent</div><div class="sub">V2.3.0.5｜旅程結案日期與結束同步修正版</div></header><main><section class="chat">
+<div class="ai-top"><div class="bubble ai"><b>AI</b><br>您好！告訴我這次準備去哪裡旅行？<br>例如：「10/5～10/10 2位大人、2位小孩、2位長輩要去日本東京旅遊」<br><br>也可以直接使用下面的快速選填。</div><div class="ai-tools"><button id="guideBtn">投保說明</button><label class="upload-btn">檔案上傳<input id="tripFile" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp"></label><small>機票、行程表等</small></div></div><div id="guideBox" class="guide-box hidden"><b>投保說明</b><ol><li>保費依小孩（未滿15歲）、大人（15～未滿65歲）、長輩（65歲以上）有所不同。</li><li>請參考 AI 提供的範例回答您的旅行需求，再勾選您的保費預算及想投保的項目（已打勾者為大多數出國旅行最常保的項目）。</li><li>如果您已經有機票，可以先上傳；還沒有也不影響投保。投保完成後拿到機票再傳給 AI，我會一路陪您，提供航班資訊、相關諮詢與旅途問題處理協助。</li></ol></div><div class="example-box"><b>💬 不知道怎麼說？直接選一個範例</b><p>點選 1、2、3 會先帶入回答框，您可以再修改後送出。 <span class="home-time-reminder">請把行程日期的出門及回到家的時間填上</span></p><div class="example-grid"><button class="example-btn" data-example="1">1 基本保障</button><button class="example-btn" data-example="2">2 預算較低</button><button class="example-btn" data-example="3">3 完整保障</button></div></div><div class="composer top-composer"><textarea id="message" placeholder="回答 AI 的旅行需求"></textarea><div class="actions"><button id="send">送出</button><button id="reset" class="secondary">重新開始</button></div></div><div id="messages"></div>
+<div class="quick"><h2>✨ 快速建立旅行需求</h2>
+<div class="q"><h3>📅 行程日期</h3><div class="row date-row"><label>啟程日（年月日時）<input id="start" type="date"><small id="startFriendly" class="friendly-time"></small></label><label>旅遊天數<input id="tripDays" type="number" min="1" value="1"></label><label>回程日<input id="end" type="date" readonly><small id="endFriendly" class="friendly-time"></small></label></div></div>
+<div class="q"><h3>🌏 目的地</h3><div class="row"><label>國家<select id="country"><option value="">請選擇</option><option>日本</option><option>韓國</option><option>泰國</option><option>新加坡</option><option>美國</option><option>其他</option></select></label><label>城市<select id="city"><option value="">請先選國家</option></select></label></div><div class="row"><input id="countryOther" placeholder="其他國家"><input id="cityOther" placeholder="其他城市"></div></div>
+<div class="q"><h3>👨‍👩‍👧‍👦 投保人數</h3><div class="counters three"><div>大人（15～未滿65歲） <button data-id="adults" data-d="-1">−</button> <b id="adults">1</b> <button data-id="adults" data-d="1">＋</button></div><div>小孩（未滿15歲） <button data-id="children" data-d="-1">−</button> <b id="children">0</b> <button data-id="children" data-d="1">＋</button></div><div>長輩（65歲以上） <button data-id="seniors" data-d="-1">−</button> <b id="seniors">0</b> <button data-id="seniors" data-d="1">＋</button></div></div><p class="hint">姓名、ID、生日，確定正式投保前再補填。</p></div>
+<div class="q"><h3>💰 每人的保險預算</h3><div class="choices"><label><input type="radio" name="budget" value="300元以下"> 300元以下</label><label><input type="radio" name="budget" value="300～500元"> 300～500元</label><label><input type="radio" name="budget" value="500元以上"> 500元以上</label><label><input type="radio" name="budget" value="不確定，請AI建議"> 不確定，請 AI 幫我建議</label></div></div>
+<div class="q"><h3>🛡 這趟旅行比較擔心什麼？（可複選）</h3><div class="choices" id="concerns">
+<label><input type="checkbox" value="意外傷害" checked> 意外事故</label><label><input type="checkbox" value="海外醫療" checked> 海外生病／醫療</label><label><input type="checkbox" value="緊急救援" checked> 海外緊急救援</label><label><input type="checkbox" value="行李損失" checked> 行李遺失／損壞</label><label><input type="checkbox" value="班機延誤" checked> 班機延誤</label><label><input type="checkbox" value="行李延誤" checked> 行李延誤</label><label><input type="checkbox" value="旅程取消"> 旅程取消／更改</label><label><input type="checkbox" value="手機遭竊"> 手機遭竊</label><label><input type="checkbox" value="食品中毒"> 食品中毒</label><label><input type="checkbox" value="旅行文件損失"> 旅行文件遺失</label><label><input type="checkbox" value="個人責任"> 個人責任</label><label><input type="checkbox" value="其他"> 其他</label></div></div>
+<button id="plan" class="plan">✨ AI 幫我規劃保障</button>
+<div id="dobPanel" class="plan-result hidden"></div>
+<div id="planResult" class="plan-result hidden"></div><div id="productResult" class="plan-result hidden"></div><div id="quoteResult" class="plan-result hidden"></div>
+<div id="applyPanel" class="apply-panel hidden" style="display:none"><div class="apply-title"><small>正式投保流程｜資料確認</small><h2>要保人資料</h2></div><div class="apply-grid">
+<label>姓名<input id="applicantName"></label><label>與被保險人關係<select id="applicantRelation"><option selected>本人</option><option>配偶</option><option>子女</option><option>父母</option></select></label>
+<label>身分證字號<input id="applicantId"></label><label>出生日期<input id="applicantDob" type="date"></label><label>手機號碼<input id="applicantPhone"></label><label>Email<input id="applicantEmail" type="email"></label><label class="wide">聯絡地址<input id="applicantAddress"></label></div>
+<div id="insuredSection"></div><button id="confirmData" class="confirm-data">資料已確認</button><button id="backPlan" class="secondary back-wide">返回保障規劃</button></div>
+<div id="paymentPanel" class="apply-panel hidden" style="display:none"><div class="apply-title"><small>正式投保流程｜信用卡繳款</small><h2>信用卡繳款</h2></div><div class="payment-total"><span>本次應繳總保費</span><strong id="paymentAmount">NT$ 0</strong></div><div class="apply-grid">
+<label class="wide">信用卡卡號<input id="cardNo" maxlength="19" placeholder="0000 0000 0000 0000"></label><label>有效期限<input id="cardExpiry" maxlength="5" placeholder="MM/YY"></label><label>背面末三碼<input id="cardCvv" maxlength="3" placeholder="CVV"></label><label class="wide">持卡人姓名<input id="cardHolder"></label></div>
+<div class="demo-note">⚠️ Demo 畫面：不會傳送、儲存或進行真實信用卡交易。正式版應串接合規金流服務。</div><div class="apply-actions"><button id="backData" class="secondary">返回資料</button><button id="payDemo">確認繳款</button></div></div>
+</section>
+<aside><h2>旅行風險 Profile</h2><div id="empty">AI 對話與快速選填會同步更新。</div><div id="profile" class="hidden"></div><div id="travelMode" class="travel-mode"><div class="travel-mode-head">✈️ <b>AI 出國模式 Travel Mode</b></div><div id="travelModeEmpty" class="travel-empty">上傳機票或行程表後，AI 會建立您的旅程服務。</div><div id="travelModeContent" class="hidden"><h3 id="tmRoute">TPE → NRT</h3><div id="tmDates"></div><div class="tm-grid"><div>航班<br><b>CI100</b></div><div>保險天數<br><b id="tmDays"></b></div></div><div class="tm-services"><b>AI 將一路陪您</b><span>✓ 出發前提醒</span><span>✓ 航班訊息／延誤提醒</span><span>✓ 行李異常處理</span><span>✓ 海外就醫與緊急協助</span><span>✓ 保險保障與理賠引導</span></div></div></div></aside></main></div><script src="/static/js/app.js"></script>
+<script>
+(function(){
+ window.v2rResumeJourney=async function(jid){
+   const r=await fetch('/api/v2r/journey/'+encodeURIComponent(jid)+'/resume');
+   const x=await r.json();
+   if(!x.ok){alert(x.error||'案件讀取失敗');return}
+   window.V2R_ACTIVE_JOURNEY=jid; window.V2R_DB_SNAPSHOT=x.data;
+   if(typeof window.v2rApplySnapshotToStableUI==='function'){
+     window.v2rApplySnapshotToStableUI(jid,x.data);
+   }
+ };
+ const p=new URLSearchParams(location.search),jid=p.get('resume_journey')||p.get('journey_id');
+ if(jid)setTimeout(()=>window.v2rResumeJourney(jid),350);
+})();
+</script>
+
+</body></html>

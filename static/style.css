@@ -1,0 +1,13 @@
+
+/* V2.2.1.1 policy completion popup — isolated from legacy modal styles */
+.v221-policy-overlay{
+  position:fixed !important; inset:0 !important; z-index:99999 !important;
+  display:flex !important; align-items:center !important; justify-content:center !important;
+  padding:24px !important; background:rgba(15,35,50,.48) !important;
+}
+.v221-policy-dialog{
+  width:min(620px,calc(100vw - 40px)); max-height:calc(100vh - 48px);
+  overflow:auto; background:#fff; border-radius:18px; padding:26px 28px;
+  box-shadow:0 20px 60px rgba(0,0,0,.24);
+}
+.v221-policy-dialog h2{margin-top:0}
